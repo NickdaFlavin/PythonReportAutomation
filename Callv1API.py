@@ -22,4 +22,3 @@ def AppfolioAPIV1_GET(endpoint: str):
 
     except requests.RequestException as e:
         return f"ERROR: Request Failed - {e}"
-    
