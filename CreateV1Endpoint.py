@@ -1,21 +1,18 @@
 #Create a function for each common endpoint
-#
-#   GL
-#   Cashflow 1-month/12 month
-#   Rent Roll
-#   Annual Budget Comparative
-#   Chart of Accounts
-#   Balance Sheet
-#   Trial Balance
-#   Delinquency/Aged Recieveables
-#   Property Directory
-#   Budget Detail
-#   Balance Sheet Comparison
-#   GPR
-#   Tenant Tickler
-#   Lease Expiration
-#   
-#
+    # Annual Budget Comparative
+    # Balance Sheet
+    # Balance Sheet Comparison
+    # Budget Detail
+    # Cashflow 1-month/12 month
+    # Chart of Accounts
+    # Delinquency/Aged Receivables
+    # GPR
+    # GL
+    # Lease Expiration
+    # Property Directory
+    # Rent Roll
+    # Tenant Tickler
+    # Trial Balance
 #
 #Create a Function for each argument
 #
