@@ -2,25 +2,26 @@ from datetime import datetime
 
 
 #Create a function for each common endpoint
-    # Aged Receivable Detail
+#   Aged Receivable Detail
 def AgedReceivableDetail(to_date:str, property:list = [], columns:list = [], owners:list = [], paginate:bool = False):
     return f"aged_receivables_detail.json?{ToDate(to_date)}&{Properties(property)}&{Columns(columns)}&{Owners(owners)}&{PaginateResults(paginate)}"
-    # Annual Budget Comparative
+#   Annual Budget Comparative
 def AnnualBudgetComparative():
     return
-    # Balance Sheet
-    # Balance Sheet Comparison
-    # Budget Detail
-    # Cashflow 1-month/12 month
-    # Chart of Accounts
-    # Delinquency/Aged Receivables
-    # GPR
-    # GL
-    # Lease Expiration
-    # Property Directory
-    # Rent Roll
-    # Tenant Tickler
-    # Trial Balance
+#   Balance Sheet
+
+#   Balance Sheet Comparison
+#   Budget Detail
+#   Cashflow 1-month/12 month
+#   Chart of Accounts
+#   Delinquency/Aged Receivables
+#   GPR
+#   GL
+#   Lease Expiration
+#   Property Directory
+#   Rent Roll
+#   Tenant Tickler
+#   Trial Balance
 #
 #Create a Function for each argument
 #   Properties
@@ -63,5 +64,3 @@ def ConvertDatetoAppfolioFormat(date:str):
     parsed_date = datetime.strptime(date,'%m/%d/%y')
     return parsed_date.strftime('%Y-%m-%d')
 
-
-print(AgedReceivableDetail("11/30/23", [79]))
