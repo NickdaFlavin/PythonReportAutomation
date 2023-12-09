@@ -1,6 +1,6 @@
 import json
 
-def ParseAppfolioV1JSON(jsonstring: str):
+def ParseAppfoliov1JSON(jsonstring: str):
     jsonstring.replace("'", '"')
     jsonstring.replace("None", '"NULL"')
     parsed_data = json.loads(jsonstring)

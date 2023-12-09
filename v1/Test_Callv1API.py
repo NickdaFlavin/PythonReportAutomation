@@ -3,7 +3,7 @@ import os
 import Ignore.api_details as api_details
 
 
-def AppfolioAPIV1_GET(endpoint: str):
+def AppfolioAPIv1_GET(endpoint: str):
 
     appfolio_client_ID = api_details.appfolio_client_id
     appfolio_client_Secret = api_details.appfolio_client_secret

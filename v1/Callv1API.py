@@ -2,7 +2,7 @@ import requests
 import os
 
 
-def AppfolioAPIV1_GET(endpoint: str):
+def AppfolioAPIv1_GET(endpoint: str):
 
     appfolio_client_ID = os.environ.get('APPFOLIO_CLIENT_ID')
     appfolio_client_Secret = os.environ.get('APPFOLIO_CLIENT_SECRET')
