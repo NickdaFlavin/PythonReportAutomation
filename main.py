@@ -1,8 +1,8 @@
 from v1.Test_Callv1API import AppfolioAPIv1_GET
-from Test_Callv2API import AppfolioAPIv2_POST
+from v2.Test_Callv2API import AppfolioAPIv2_POST
 from ParseAppfolioJSON import ParseAppfoliov1JSON
 import v1.Createv1Endpoint as v1
-import Createv2Endpoint as v2
+import v2.Createv2Endpoint as v2
 
 
 endpoint = v1.AgedReceivableDetail("11/30/23", [79])
