@@ -34,6 +34,7 @@ def CashFlow(from_date:str, to_date:str,
     return "twelve_month_cash_flow.json", jsonpackage
 
 
-
+data['propeties'] = {}
+data['propeties']['properties_ids'] = 'value'
 
 
