@@ -19,11 +19,15 @@ df = pd.DataFrame(api_data)
 columns = ['AccountCode'] + [col for col in df.columns if 'Slice' in col]
 new_df = df[columns]
 
+subtotal = new_df[new_df['AccountCode'] == '50200'][new_df.columns[1:]].sum().values
+new_df = pd.concat([new_df, pd.DataFrame([{'AccountCode': 'Subtotal', **dict(zip(new_df.columns[1:], subtotal))}])], ignore_index=True)
+
+
 pdf = FPDF('L')
 
 pdf.add_page()
 
-pdf.set_font('Times', '', 12)
+pdf.set_font('Times', '', 10)
 
 for index, row in new_df.iterrows():
     for i, col in enumerate(row):
