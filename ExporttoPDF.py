@@ -11,15 +11,18 @@ from fpdf import FPDF
 
 endpoint, json_data = v2.CashFlow("01/01/23", "12/31/23", property_ids=[79])
 
-
 api_data = json.loads(AppfolioAPIv2_POST(endpoint, json_data))
 
+print(api_data)
 
 df = pd.DataFrame(api_data)
 columns = ['AccountCode'] + [col for col in df.columns if 'Slice' in col]
 new_df = df[columns]
 
 subtotal = new_df[new_df['AccountCode'] == '50200'][new_df.columns[1:]].sum().values
+
+
+
 new_df = pd.concat([new_df, pd.DataFrame([{'AccountCode': 'Subtotal', **dict(zip(new_df.columns[1:], subtotal))}])], ignore_index=True)
 
 

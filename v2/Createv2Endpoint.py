@@ -18,18 +18,18 @@ def CashFlow(from_date:str, to_date:str,
     jsonpackage = {
         "property_visibility": visibility,
         "properties": {
-            "properties_ids": [','.join(str(i) for i in property_ids)],
-            "property_groups_ids": [','.join(str(i) for i in property_group_ids)],
-            "portfolios_ids": [','.join(str(i) for i in portfolios_ids)],
-            "owners_ids": [','.join(str(i) for i in owners_ids)]
+            "properties_ids": [','.join(str(i) for i in property_ids)]
+            #"property_groups_ids": [','.join(str(i) for i in property_group_ids)],
+            #"portfolios_ids": [','.join(str(i) for i in portfolios_ids)],
+            #"owners_ids": [','.join(str(i) for i in owners_ids)]
         },
         "posted_on_from": ConvertDatetoYYYYMM(from_date),
         "posted_on_to": ConvertDatetoYYYYMM(to_date),
         "accounting_basis": accounting_basis,
         "level_of_detail": level_of_detail,
         "include_zero_balance_gl_accounts": include_zero_balance_gl_accounts,
-        "exclude_suppressed_fees": exclude_suppressed_fees, 
-        "columns": [','.join(i for i in columns)]
+        "exclude_suppressed_fees": exclude_suppressed_fees,
+        #"columns": [','.join(i for i in columns)]
     }
     return "twelve_month_cash_flow.json", jsonpackage
 

@@ -11,7 +11,8 @@ def AppfolioAPIv2_POST(endpoint: str, json_data:list):
     appfolio_database = api_details.appfolio_database_name
 
     if appfolio_client_ID and appfolio_client_Secret and appfolio_database:
-        api_url = f"https://{appfolio_database}.appfolio.com/api/v1/reports/{endpoint}"
+        api_url = f"https://{appfolio_database}.appfolio.com/api/v2/reports/{endpoint}"
+        
     else:
         return "ERROR: Retrieving Secrets"
     
@@ -20,9 +21,9 @@ def AppfolioAPIv2_POST(endpoint: str, json_data:list):
     }
 
     try:
-        response = requests.get(api_url, data=json.dumps(json_data), headers=headers, auth=(appfolio_client_ID, appfolio_client_Secret))
+        response = requests.post(api_url, json=json.dumps(json_data), headers=headers, auth=(appfolio_client_ID, appfolio_client_Secret))
         if response.status_code == 200:
-            return response.text
+            return response.text, json.dumps(json_data)
         else:
             return f"ERROR: Invaild Response: {response.status_code}"
 
