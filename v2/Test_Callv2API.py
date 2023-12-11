@@ -19,11 +19,11 @@ def AppfolioAPIv2_POST(endpoint: str, json_data:list):
     headers = {
         'Content-Type': 'application/json'
     }
-
+    
     try:
-        response = requests.post(api_url, json=json.dumps(json_data), headers=headers, auth=(appfolio_client_ID, appfolio_client_Secret))
+        response = requests.post(api_url, json=json_data, headers=headers, auth=(appfolio_client_ID, appfolio_client_Secret))
         if response.status_code == 200:
-            return response.text, json.dumps(json_data)
+            return response.text
         else:
             return f"ERROR: Invaild Response: {response.status_code}"
 

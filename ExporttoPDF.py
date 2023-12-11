@@ -13,18 +13,11 @@ endpoint, json_data = v2.CashFlow("01/01/23", "12/31/23", property_ids=[79])
 
 api_data = json.loads(AppfolioAPIv2_POST(endpoint, json_data))
 
-print(api_data)
+df = pd.json_normalize(api_data, record_path=['months'], meta=['account_code'])
 
-df = pd.DataFrame(api_data)
-columns = ['AccountCode'] + [col for col in df.columns if 'Slice' in col]
-new_df = df[columns]
+df_agg = df.groupby(by=['account_code', 'id']).sum().reset_index()
 
-subtotal = new_df[new_df['AccountCode'] == '50200'][new_df.columns[1:]].sum().values
-
-
-
-new_df = pd.concat([new_df, pd.DataFrame([{'AccountCode': 'Subtotal', **dict(zip(new_df.columns[1:], subtotal))}])], ignore_index=True)
-
+pivot_df = df_agg.pivot(index='account_code', columns='id', values='value')
 
 pdf = FPDF('L')
 
@@ -32,7 +25,7 @@ pdf.add_page()
 
 pdf.set_font('Times', '', 10)
 
-for index, row in new_df.iterrows():
+for index, row in pivot_df.iterrows():
     for i, col in enumerate(row):
         pdf.cell(20, 10, txt=str(col).encode().decode('latin-1', 'strict'), ln=True if i == len(row)-1 else 0)
 
