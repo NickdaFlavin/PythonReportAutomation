@@ -26,7 +26,16 @@ pdf.add_page()
 pdf.set_font('Times', '', 10)
 
 for index, row in pivot_df.iterrows():
+    for item in row:
+        print(row)
+
+
+for index, row in pivot_df.iterrows():
+    pdf.cell(20, 10, txt=str(index).encode().decode('latin-1', 'strict'), ln=False)
     for i, col in enumerate(row):
-        pdf.cell(20, 10, txt=str(col).encode().decode('latin-1', 'strict'), ln=True if i == len(row)-1 else 0)
+        pdf.cell(20, 10, txt=str(col).encode().decode('latin-1', 'strict'), ln=False)
+        if i == len(row)-1:
+            pdf.ln()
+            
 
 pdf.output('ouput.pdf', 'F')
