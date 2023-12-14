@@ -23,11 +23,15 @@ df_agg = df.groupby(by=['account_code', 'id']).sum().round(2).reset_index()
 pivot_df = df_agg.pivot(index='account_code', columns='id', values='value')
 
 cahflowdict_strkeys = {str(key): value for key, value in cash_flow.cashflowdict.items()}
-custom_cashflow_order = ['rental income', 'subsidized rental income', 'other op income', 'payroll', 'utilities', 'turnove costs', 'maintenance expense', 'advertising', 'other expenditures', 'taxes and licenses']
+custom_cashflow_order = ['rental income', 'subsidized rental income', 'other op income', 'payroll', 'utilities', 
+                         'turnover costs', 'maintenance expense', 'advertising', 'other expenditures', 'taxes and licenses', 'other op expense', 
+                         'other income', 'capital expenditure', 'other expense', 'other item']
 
 pivot_df['cash_flow_cat'] = pivot_df.index.map(cahflowdict_strkeys)
+pivot_df['cash_flow_cat'] = pd.Categorical(pivot_df['cash_flow_cat'], categories=custom_cashflow_order, ordered=True)
+pivot_df = pivot_df.sort_values(by='cash_flow_cat')
 
-df_agg = pivot_df.groupby(by=['cash_flow_cat']).sum().round(2).reset_index()
+df_agg = pivot_df.groupby(by=['cash_flow_cat'], observed=True).sum().round(2).reset_index()
 df_agg.set_index('cash_flow_cat', inplace=True)
 
 
@@ -37,14 +41,25 @@ pdf.add_page()
 
 pdf.set_font('Times', '', 10)
 
+previous_cat = ''
 
 for index, row in pivot_df.iterrows():
+    
+    if previous_cat != row.iloc[-1] and previous_cat != '' and pd.notnull(previous_cat):
+        pdf.cell(20, 10, txt=str(previous_cat).encode().decode('latin-1', 'strict'), ln=False)
+        for i, col in enumerate(df_agg.loc[previous_cat]):
+            pdf.cell(20, 10, txt=str(col).encode().decode('latin-1', 'strict'), ln=False)
+        pdf.ln()
+    
     pdf.cell(20, 10, txt=str(index).encode().decode('latin-1', 'strict'), ln=False)
     for i, col in enumerate(row):
+        
         if i == len(row)-1:
+            previous_cat = col
             pdf.ln()
         else:
             pdf.cell(20, 10, txt=str(col).encode().decode('latin-1', 'strict'), ln=False)
+        
             
 
 pdf.output('ouput.pdf', 'F')
