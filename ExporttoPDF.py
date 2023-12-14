@@ -23,6 +23,7 @@ df_agg = df.groupby(by=['account_code', 'id']).sum().round(2).reset_index()
 pivot_df = df_agg.pivot(index='account_code', columns='id', values='value')
 
 cahflowdict_strkeys = {str(key): value for key, value in cash_flow.cashflowdict.items()}
+custom_cashflow_order = ['rental income', 'subsidized rental income', 'other op income', 'payroll', 'utilities', 'turnove costs', 'maintenance expense', 'advertising', 'other expenditures', 'taxes and licenses']
 
 pivot_df['cash_flow_cat'] = pivot_df.index.map(cahflowdict_strkeys)
 
