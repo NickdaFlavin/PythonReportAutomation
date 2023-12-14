@@ -21,6 +21,7 @@ df['value'] = df['value'].astype(float)
 df_agg = df.groupby(by=['account_code', 'id']).sum().round(2).reset_index()
 
 pivot_df = df_agg.pivot(index='account_code', columns='id', values='value')
+pivot_df['total'] = pivot_df.sum(axis=1).round(2)
 
 cahflowdict_strkeys = {str(key): value for key, value in cash_flow.cashflowdict.items()}
 custom_cashflow_order = ['rental income', 'subsidized rental income', 'other op income', 'payroll', 'utilities', 
@@ -44,13 +45,17 @@ pdf.set_font('Times', '', 10)
 previous_cat = ''
 
 for index, row in pivot_df.iterrows():
-    
-    if previous_cat != row.iloc[-1] and previous_cat != '' and pd.notnull(previous_cat):
-        pdf.cell(20, 10, txt=str(previous_cat).encode().decode('latin-1', 'strict'), ln=False)
+    current_cat = row.iloc[-1]
+    if previous_cat != current_cat and previous_cat != '' and pd.notnull(previous_cat):
+        pdf.cell(20, 10, txt=str('Total '+previous_cat).encode().decode('latin-1', 'strict'), ln=False)
         for i, col in enumerate(df_agg.loc[previous_cat]):
             pdf.cell(20, 10, txt=str(col).encode().decode('latin-1', 'strict'), ln=False)
         pdf.ln()
+        pdf.cell(20, 10, txt=str(current_cat).encode().decode('latin-1', 'strict'), ln=True)
     
+    #Add all the extra Lines here - lines that are not a subtotal, but a total of two other subtotals
+
+
     pdf.cell(20, 10, txt=str(index).encode().decode('latin-1', 'strict'), ln=False)
     for i, col in enumerate(row):
         
@@ -59,6 +64,9 @@ for index, row in pivot_df.iterrows():
             pdf.ln()
         else:
             pdf.cell(20, 10, txt=str(col).encode().decode('latin-1', 'strict'), ln=False)
+
+        #Need to add the line total
+        #need to ignore lines that have a zero total
         
             
 
