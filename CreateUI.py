@@ -99,6 +99,7 @@ class App(customtkinter.CTk):
 
         self.title("Report Package Creator")
         self.geometry("800x500")
+        customtkinter.set_appearance_mode("dark")
 
         #Only Works for Even Numbers
         self.number_of_columns = 8
